@@ -1,9 +1,14 @@
 import React,{useState , useRef} from 'react'
 import classes from './auth.module.css'
+import { useNavigate } from 'react-router-dom';
+import { AuthActions } from '../store';
+import { useDispatch } from 'react-redux';
 const Auth = () => {
     const [isLogin , setIsLogin] = useState(false);
     const emailInput = useRef();
+    const dispatch = useDispatch()
     const passwordInput = useRef();
+   
     const confirmPasswordInput = useRef();
     const switchAuthModeHandler = () => {
         setIsLogin(!isLogin)
@@ -27,13 +32,15 @@ if(isLogin || passwordInput.current.value === confirmPasswordInput.current.value
     method : 'POST',
     body : JSON.stringify(myObj)
    })
-   .then(res => res.json()).catch(err => console.log(err)) 
+   .then(res => res.json()).catch(err => alert(err.message)) 
    .then(resp => {
     if(resp.error){
         alert(resp.error.message);
     }
     else{
         console.log(resp);
+        dispatch(AuthActions.login())
+        
     }
    })
 }
