@@ -40,7 +40,10 @@ if(isLogin || passwordInput.current.value === confirmPasswordInput.current.value
     else{
         console.log(resp);
         dispatch(AuthActions.login())
-        
+        console.log(resp.email)
+        let mail = resp.email;
+      
+        localStorage.setItem("boxEmail",mail);
     }
    })
 }

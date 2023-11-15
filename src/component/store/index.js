@@ -14,10 +14,23 @@ const authSlice = createSlice({
      }
     }
 })
+const sentItems = createSlice({
+    name : 'sentEmails ',
+    initialState : {
+        items : []
+    }
+    ,reducers :{
+        addItems(state,action){
+          state.items.push(action.payload)
+        }
+    }
+})
 const store  = configureStore({
     reducer : {
-        auth : authSlice.reducer
+        auth : authSlice.reducer,
+        sentItems : sentItems.reducer
     } 
 })
+export const sentEmails = sentItems.actions; 
 export const AuthActions = authSlice.actions;
 export default store;

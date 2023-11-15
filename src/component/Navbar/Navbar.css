@@ -1,0 +1,12 @@
+.navBar{
+    height : 100px;
+    margin : 0;
+    width : 100vw;
+    background-color: black;
+    color : white;
+}
+.link{
+position: relative;
+top:30px;
+right : 500px;
+}

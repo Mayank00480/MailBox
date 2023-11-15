@@ -1,0 +1,10 @@
+.unorderedItems{
+    list-style-type: none;
+}
+.listItems{
+    border : 1px solid black;
+    padding : 5px;
+    border-radius: 5px;
+    margin : 10px;
+    width : 400px;
+}
