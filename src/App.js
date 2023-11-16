@@ -5,7 +5,8 @@ import Auth from './component/auth/Auth';
 import { BrowserRouter as Router,Routes , Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Inbox from './component/Inbox/Inbox';
-import SentBox from './component/Sent/SentBox';
+import SentBox from './component/Sent/SentBox'
+import InboxMessage from './component/InboxMessage/InboxMessage';
 function App() {
   const isAuth = useSelector(state => state.auth.isAuthenticated)
   console.log(isAuth)
@@ -16,6 +17,7 @@ function App() {
         {localStorage.getItem("boxEmail") != undefined && <Route exact path = "/" Component={Home} />}
         {localStorage.getItem("boxEmail") != undefined && <Route exact path = "/sent" Component={SentBox} />}
         {localStorage.getItem("boxEmail") != undefined && <Route exact path = "/inbox" Component={Inbox} />}
+        {localStorage.getItem("boxEmail") != undefined && <Route exact path = "/inbox/:item" Component={InboxMessage} />}
           <Route exact path ="/" Component={Auth}/>
         
         </Routes>

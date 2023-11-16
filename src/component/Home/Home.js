@@ -1,6 +1,6 @@
 import React ,{useRef}from 'react'
 import { useDispatch } from 'react-redux'
-import { AuthActions } from '../store'
+import { AuthActions, sentEmails } from '../store'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './Home.css'
@@ -49,7 +49,8 @@ fetch(`https://mail-box-41ac6-default-rtdb.firebaseio.com/inbox/${destinyInbox}.
   body : JSON.stringify({
     From : senderMail ,
     subject : emailSubject.current.value,
-    body : emailBody.current.value
+    body : emailBody.current.value,
+    isRead : false
   }),
   headers : {
     "Content-Type" : "application/json"
@@ -63,6 +64,11 @@ fetch(`https://mail-box-41ac6-default-rtdb.firebaseio.com/inbox/${destinyInbox}.
   }
   else{
     console.log(resp);
+ dispatch(sentEmails.addItems({
+  From : senderMail ,
+    subject : emailSubject.current.value,
+    body : emailBody.current.value
+ }))  
   }
 })
 
@@ -85,7 +91,7 @@ fetch(`https://mail-box-41ac6-default-rtdb.firebaseio.com/inbox/${destinyInbox}.
           <input type ="text" placeholder='Text Mail' className = 'subject' ref = {emailSubject}/>
           <br/>
           <hr/>
-          <ReactQuill className = "editor" ref = {emailBody}/>
+          <ReactQuill className = "editor" onChange={() => {console.log(emailBody.current.value)}} ref = {emailBody}/>
           <input type = "submit" className = "submit"/>
    </form>
     </>
