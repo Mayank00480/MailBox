@@ -17,12 +17,25 @@ const Inbox = () => {
          .then(resp => {
             let arr = [];
                 for(let key in resp){
-                    arr.push(resp[key]);
+                    arr.push({...resp[key],id : key});
                 }
                 setUpdatedData(arr);
             }
     )
     }, [])
+    const deleteItem = (id) => {
+      console.log(id)
+      fetch(`https://mail-box-41ac6-default-rtdb.firebaseio.com/inbox/${sender2}/${id}.json`,{
+        method : 'DELETE'
+      })
+      .then(res => res.json())
+      .then(resp => {
+        setUpdatedData(updatedData.filter(item => {
+       return item.id != id
+        }))
+      })
+      
+      }
   return (
     <>
       <Navbar/>
@@ -31,7 +44,12 @@ const Inbox = () => {
         return <li className = "listItems" key = {Math.random().toString()}> 
         {!item.isRead && <span className ="dot" ></span>}
         <Link to = {"/inbox/"+item.subject} style = {{margin : '2px 0px',textDecoration:'none',color:'black'}}>subject : {item.subject} </Link> <p style = {{fontSize : '10px'}}>To : {item.From} </p>
-        {item.body}</li>
+        {item.body}
+        <button type = "button" onClick = {
+          () => {
+             deleteItem(item.id);
+          }
+        }> Delete </button></li>
       })}
       </ul>
     </>
